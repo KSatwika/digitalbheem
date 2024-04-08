@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking - Customer Info</title>
+    <style>
+        body {
+            background-image: url('in5.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input[type="text"], input[type="date"], input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .missing-field {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 style="text-align: center;">Hotel Booking - Customer Info</h2>
+    <form id="customerInfoForm">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" required>
+
+        <label for="checkInDate">Check-in Date:</label>
+        <input type="date" id="checkInDate" required>
+
+        <label for="totalDays">Total Days:</label>
+        <input type="number" id="totalDays" min="1" required>
+
+        <label for="totalPersons">Total Persons:</label>
+        <input type="number" id="totalPersons" min="1" required>
+
+        <label for="advanceAmount">Advance Amount:</label>
+        <input type="number" id="advanceAmount" min="0" required>
+
+        <button type="button" onclick="validateCustomerInfo()">Next</button>
+    </form>
+</div>
+
+<script>
+    function validateCustomerInfo() {
+        var customerName = document.getElementById("customerName").value;
+        var checkInDate = document.getElementById("checkInDate").value;
+        var totalDays = document.getElementById("totalDays").value;
+        var totalPersons = document.getElementById("totalPersons").value;
+        var advanceAmount = document.getElementById("advanceAmount").value;
+
+        var missingFields = [];
+
+        if (customerName === '') {
+            document.getElementById("customerName").classList.add("missing-field");
+            missingFields.push("Customer Name");
+        } else {
+            document.getElementById("customerName").classList.remove("missing-field");
+        }
+        if (checkInDate === '') {
+            document.getElementById("checkInDate").classList.add("missing-field");
+            missingFields.push("Check-in Date");
+        } else {
+            document.getElementById("checkInDate").classList.remove("missing-field");
+        }
+        if (totalDays === '') {
+            document.getElementById("totalDays").classList.add("missing-field");
+            missingFields.push("Total Days");
+        } else {
+            document.getElementById("totalDays").classList.remove("missing-field");
+        }
+        if (totalPersons === '') {
+            document.getElementById("totalPersons").classList.add("missing-field");
+            missingFields.push("Total Persons");
+        } else {
+            document.getElementById("totalPersons").classList.remove("missing-field");
+        }
+        if (advanceAmount === '') {
+            document.getElementById("advanceAmount").classList.add("missing-field");
+            missingFields.push("Advance Amount");
+        } else {
+            document.getElementById("advanceAmount").classList.remove("missing-field");
+        }
+
+        if (missingFields.length > 0) {
+            var missingFieldsString = missingFields.join(", ");
+            alert("Please fill all the details for complete registration.\nMissing fields: " + missingFieldsString);
+        } else {
+            localStorage.setItem("customerName", customerName);
+            localStorage.setItem("checkInDate", checkInDate);
+            localStorage.setItem("totalDays", totalDays);
+            localStorage.setItem("totalPersons", totalPersons);
+            localStorage.setItem("advanceAmount", advanceAmount);
+            window.location.href = "payment.htm";
+        }
+    }
+</script>
+
+</body>
+</html>
